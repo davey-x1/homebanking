@@ -93,15 +93,24 @@
           <template v-if = "currentLoanActive == 'YES'">
               <div class="div__form div__center">
                 <form class="" @submit="createLoan" id = "">
-
-                  <label for="lname" class ="div__lobster">Amount you want to get</label>
+                   <div class="div__lobster div__flex" style = "justify-content: space-between">
+                     <p>Name of the credit: {{ currentLoan.nameOfLoan }}</p>
+                     <p>Max amount of loan: {{ currentLoan.maxAmountOfLoan }}</p>
+                   </div>
+                  <label for="lname" class ="div__lobster">Amount you want to ask</label>
                   <input type="number" id="amount" placeholder="">
 
                   <label for="select-payment" class ="div__lobster">Choose a payment option</label>
                   <select id="selectpayment">
                     <option v-for="item in currentLoan.paymentsOfLoan" :value="item"> {{ item }} </option>
                   </select>
-                  <input type="submit" value="Submit">
+
+                  <label for="select-payment" class ="div__lobster">Choose a payment option</label>
+                  <select id="selectpayment">
+                    <option v-for="item in currentLoan.paymentsOfLoan" :value="item"> {{ item }} </option>
+                  </select>
+                  
+                  <input type="submit" value = "">
                 </form>
               </div>
           </template>

@@ -36,6 +36,7 @@ Vue.createApp({
           .then(response =>
             {
               alert("You have successfully signed up, you now can proceed to log-in");
+              this.template = 'login';
 
             })
           .catch(response => alert("Error"))
