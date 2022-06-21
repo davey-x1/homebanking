@@ -1,0 +1,228 @@
+<!DOCTYPE html5>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+
+    <link rel = "stylesheet" href = "../css/sidebar.css">
+    <link rel = "stylesheet" href = "../css/accounts.css">
+    <link rel = "stylesheet" href = "../css/cards.css">
+    <link rel = "stylesheet" href = "../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  </head>
+  <body>
+    <div class = "body-main" id = "app">
+      <div class="sidebar__main sidebar__expand">
+        <div class="sidebar__main-top">
+          <div class="div__center div__lobster">
+            <span class = "navbar__txt"> American Bank </span>
+          </div>
+        </div>
+        <div class="sidebar__profile">
+          <div class="div__center div__flex">
+            <img id = "profile-picture" src="https://loveshayariimages.in/wp-content/uploads/2022/03/High-Quality-New-Alone-Whatsapp-Dp-Profile-Images-pictures-2021-scaled.gif" alt="" width = "80px" height = "80px">
+            <span class = "sidebar__txt">
+              <p style = "color: white;"> {{ currentSession.firstName + " " + currentSession.lastName }} </p>
+              <p style = "color: #6c7293;"> {{ currentSession.role }} </p>
+            </span>
+
+          </div>
+        </div>
+        <div class="sidebar__menu">
+          <ul>
+            <li><a class ="sidebar__a " href="accounts.html"><i class="fa-solid fa-file-circle-plus side-icon"></i><span class = "sidebar__txt"> Accounts </span></a></li>
+            <li><a class ="sidebar__a " href="loans.html"><i class="fa-solid fa-magnifying-glass-dollar side-icon"></i><span class = "sidebar__txt"> Loans </span></a></li>
+            <li><a class ="sidebar__a " href="cards.html"><i class="fa-solid fa-credit-card side-icon"></i><span class = "sidebar__txt"> Cards </span></a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="content__main content__main-collapse">
+        <div class="navbar__main navbar__main-collapse">
+          <ul class = "div__flex">
+            <div class="navbar_left div__flex">
+              <li id = "sidebar-collapse"><a href="#"><i class="fa-solid fa-bars"></i></a></li>
+            </div>
+            <div class="navbar_center">
+              <li><a href="#"><span style = "color: white" class = "navbar__txt div__lobster div__hidden"> American Bank </span></a></li>
+            </div>
+            <div class="navbar_right div__flex">
+              <li @click="addCard()" ><a href="#" class = "txt__success"><i class="fa-solid fa-credit-card"></i></a></li>
+              <li><a href="#" class = "txt__error"><i class="fa-solid fa-right-from-bracket"></i></a></li>
+            </div>
+          </ul>
+        </div>
+        <div class = "div__content div__content__main">
+          <div class="night">
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+          </div>
+          <div class="div__card-container ">
+            <div class="div__card div__flex bg--gold " @click = "changeColor('GOLD');">
+              <div class="div__card-info ">
+                <div class="div__card-info-details div__top">
+                  <p class = "no-mp div__bold div__lobster" > Cards </p>
+                  <p class = "no-mp"> Gold Cards </p>
+                </div>
+              </div>
+            </div>
+            <div class="div__card div__flex bg--platinum" @click = "changeColor('PLATINUM');">
+              <div class="div__card-info ">
+                <div class="div__card-info-details div__top">
+                  <p class = "no-mp div__bold div__lobster" > Cards </p>
+                  <p class = "no-mp"> Platinum Cards </p>
+                </div>
+              </div>
+            </div>
+            <div class="div__card div__flex bg--titanium" @click = "changeColor('TITANIUM');">
+              <div class="div__card-info ">
+                <div class="div__card-info-details div__top">
+                  <p class = "no-mp div__bold div__lobster"> Cards </p>
+                  <p class = "no-mp"> Titanium cards </p>
+                </div>
+              </div>
+            </div>
+          </div>
+            <div id ="cardholder" class = "cardholder">
+              <template v-for="(card, property) in currentSession.cards">
+                <div v-if = "card.cardColor == accountTypeChosen" class="card">
+                  <div class="card__front card__part bg--titanium">
+                    <div class="card__title">
+                      <div class="card_top_title">
+                        <div>
+                          American Bank
+                        </div>
+                      </div>
+                      <div class="card_top_logo">
+                        <img class = "card_top-logo" src = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Visa_Logo.png/640px-Visa_Logo.png" alt = "">
+                      </div>
+                    </div>
+                    <div class="card__content">
+                      <p class="card_number"> {{ card.number }} </p>
+                    </div>
+                    <div class="card__bottom">
+                      <div class="card_date">
+                        <div class="card_date-title card__from">
+                          <p class = "card_name card-title">Card Holder</p>
+                          <p class = "card_name">{{ currentSession.firstName + " " + currentSession.lastName }}</p>
+                        </div>
+                        <div class="card_date-title card__expire">
+                          <p class = "card_expire card-title">Valid Date</p>
+                          <p> {{ card.fromDate }} / {{ card.thruDate }}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card__back">
+                    <div class="card_back card__part card__back-not-turned bg--titanium">
+                      <div class="card__black-line"></div>
+                      <div class="card__back-content">
+                        <div class="card__secret">
+                          <p class="card__secret--last">{{ card.cvv }}</p>
+                        </div>
+                        <div class = "card__back-square card__square card__label">{{ card.cardType }} CARD</div>
+                        <img class="card__back-logo card__logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Visa_Logo.png/640px-Visa_Logo.png">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </template>
+            </div>
+            <div class = "div__media__controls">
+              <span id = "left-button"><i class="fa-solid fa-arrow-left"></i></span>
+              <span id = "turn-button"><i class="fa-solid fa-arrows-rotate"></i></span>
+              <span id = "right-button"><i class="fa-solid fa-arrow-right"></i></span>
+            </div>
+        </div>
+
+        </div>
+      </div>
+    </div>
+    <!-- //////////////////////////////////// -->
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js" integrity="sha512-xIPqqrfvUAc/Cspuj7Bq0UtHNo/5qkdyngx6Vwt+tmbvTLDszzXM0G6c91LXmGrRx8KEPulT+AfOOez+TeVylg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src = "../js/cards.js" type="text/javascript"></script>
+    <script src = "../js/sidebar.js" type="text/javascript"></script>
+    <script type="text/javascript">
+
+    function turnCard(){
+      $('.card').first().children('.card__front').removeClass('card__front-turned');
+      $('.card').first().children('.card__back').removeClass('card__back-turned');
+      $('.card').first().children('.card__back').children('.card_back').removeClass('card__back-turned').addClass('card__back-not-turned');
+    }
+
+    const delay = ms => new Promise(res => setTimeout(res, ms));
+    var $card = $('.card');
+    var lastCard = $(".cardholder .card").length - 1;
+    $('#left-button').click(function(){
+      turnCard();
+    	var prependList = function() {
+    		if( $('.card').hasClass('active') ) {
+    			var $slicedCard = $('.card').slice(lastCard).removeClass('active');
+    			$('.cardholder').prepend($slicedCard);
+    		}
+    	}
+      $('.card').last().removeClass('transformPrev').addClass('transformThis').prev().addClass('active');
+      setTimeout(
+        function(){
+          prependList();
+          setTimeout(function(){
+            //$('.card').first().removeClass('transformPrev');
+            $('.card').first().removeClass('transformThis').addClass('transformPrev');
+            $('.card').first().next().removeClass('transformPrev');
+            //$('.card').last().prev().addClass('active');
+          }, 10);
+      }, 490);
+    });
+
+    $('#right-button').click(function(){
+      turnCard();
+    	var prependList = function() {
+    		if( $('.card').hasClass('active') ) {
+    			var $slicedCard = $('.card').slice(1).removeClass('active');
+    			$('.cardholder').prepend($slicedCard);
+    		}
+    	}
+      $('.card').first().removeClass('transformPrev').addClass('transformThis').next().addClass('active');
+      setTimeout(
+        function(){
+          prependList();
+          setTimeout(function(){
+            //$('.card').first().removeClass('transformPrev');
+            $('.card').last().removeClass('transformThis').addClass('transformPrev');
+            $('.card').last().prev().removeClass('transformPrev transformThis');
+            //$('.card').last().prev().addClass('active');
+          }, 10);
+      }, 490);
+    });
+
+    $('#turn-button').click(function(){
+      $('.card').first().children('.card__front').toggleClass('card__front-turned');
+      $('.card').first().children('.card__back').toggleClass('card__back-turned');
+      $('.card').first().children('.card__back').children('.card_back').toggleClass('card__back-not-turned card__back-turned');
+    });
+
+
+
+    </script>
+  </body>
+</html>

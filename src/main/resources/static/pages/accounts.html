@@ -1,0 +1,138 @@
+<!DOCTYPE html5>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+
+    <link rel = "stylesheet" href = "../css/sidebar.css">
+    <link rel = "stylesheet" href = "../css/accounts.css">
+    <link rel = "stylesheet" href = "../style.css">
+  </head>
+  <body>
+    <div class = "body-main" id = "app">
+      <div class="sidebar__main sidebar__expand">
+        <div class="sidebar__main-top">
+          <div class="div__center div__lobster">
+            <span class = "navbar__txt"> American Bank </span>
+          </div>
+        </div>
+        <div class="sidebar__profile">
+          <div class="div__center div__flex">
+            <img id = "profile-picture" src="https://loveshayariimages.in/wp-content/uploads/2022/03/High-Quality-New-Alone-Whatsapp-Dp-Profile-Images-pictures-2021-scaled.gif" alt="" width = "80px" height = "80px">
+            <span class = "sidebar__txt">
+              <p style = "color: white;"> {{ currentSession.firstName + " " + currentSession.lastName }} </p>
+              <p style = "color: #6c7293;"> {{ currentSession.role }} </p>
+            </span>
+
+          </div>
+        </div>
+        <div class="sidebar__menu">
+          <ul>
+            <li><a class ="sidebar__a " href=accounts.html><i class="fa-solid fa-file-circle-plus side-icon"></i><span class = "sidebar__txt"> Accounts </span></a></li>
+            <li><a class ="sidebar__a " href="loans.html"><i class="fa-solid fa-magnifying-glass-dollar side-icon"></i><span class = "sidebar__txt"> Loans </span></a></li>
+            <li><a class ="sidebar__a " href="cards.html"><i class="fa-solid fa-credit-card side-icon"></i><span class = "sidebar__txt"> Cards </span></a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="content__main content__main-collapse">
+        <div class="navbar__main navbar__main-collapse">
+          <ul class = "div__flex">
+            <div class="navbar_left div__flex">
+              <li id = "sidebar-collapse"><a href="#"><i class="fa-solid fa-bars"></i></a></li>
+            </div>
+            <div class="navbar_center">
+              <li><a href="#"><span style = "color: white" class = "navbar__txt div__lobster div__hidden"> American Bank </span></a></li>
+            </div>
+            <div class="navbar_right div__flex">
+              <li @click="addAccount()" ><a href="#" class = "txt__success"><i class="fa-solid fa-file-circle-plus"></i></a></li>
+              <li><a href="#" class = "txt__error"><i class="fa-solid fa-right-from-bracket"></i></a></li>
+            </div>
+          </ul>
+        </div>
+        <div class = "div__content div__content__main">
+          <div class="night">
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+          </div>
+          <div class="div__card-container">
+            <div v-for="account in currentSession.accountsOwned" class="div__card div__flex bg--normal">
+              <div class="div__card-info" @click="usedAccount = account">
+                <div class="div__card-info-details div__center">
+                  <p style = "padding: 0; margin: 0;"><span style = "font-size: 12px; font-weight: bold; color: #6c7293">Details of account</span></p>
+                  <p style = "padding: 0; margin: 0;"><span style = "font-size: 18px; color: white">{{ account.numberOfAccount }} <br> {{ account.creationDateOfAccount }} <br> {{ account.accountType }}</span></p>
+                  <p style = "padding: 0; margin: 0;"><span style = "font-weight: bold; font-size: 12px; color: #6c7293">Balance</span></p>
+                  <p style = "padding: 0; margin: 0;"><span style = "font-size: 20px; color: white"> ${{ account.balanceOfAccount }} </span></p>
+                </div>
+              </div>
+              <div class="div__card-icon" @click="deleteAccount(account)">
+                <span class = "div__center icon__center"><i class="fa-solid fa-square-xmark"></i></span>
+              </div>
+            </div>
+          </div>
+          <div class="div__card full-height bg--normal" style = "cursor: default;">
+            <div v-if = "Object.keys(usedAccount).length != 0" >
+              <div class="div__title div__flex" style = "justify-content: space-around">
+                <div>
+                  <span class = "div__lobster" style = "color: rgb(108, 114, 147);">Number of account: </span> <span> {{ usedAccount.numberOfAccount }} </span>
+                </div>
+                <div>
+                  <span class = "div__lobster" style = "color: rgb(108, 114, 147);">Type of account: </span> <span> {{ usedAccount.accountType }} </span>
+                </div>
+              </div>
+              <div class="div__table div__center" style = "top: 40%;" v-if = "usedAccount.transactionEntities.length != 0">
+                <table>
+                  <thead>
+                    <tr class = "div__lobster">
+                      <th> Date </th>
+                      <th> Amount </th>
+                      <th> Type </th>
+                      <th> Description </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for = "transaction in usedAccount.transactionEntities">
+                      <td> {{ transaction.date }} </td>
+                      <td> {{ transaction.amount }} </td>
+                      <td> {{ transaction.type }} </td>
+                      <td> {{ transaction.description }} </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div v-else class = "div__center div__lobster">
+                No transactions found for this account
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- //////////////////////////////////// -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/19b971d5e3.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src = "../js/main.js" type="text/javascript"></script>
+    <script src = "../js/sidebar.js" type="text/javascript"></script>
+
+  </body>
+</html>

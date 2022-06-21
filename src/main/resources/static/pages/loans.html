@@ -1,0 +1,122 @@
+<!DOCTYPE html5>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+
+    <link rel = "stylesheet" href = "../css/sidebar.css">
+    <link rel = "stylesheet" href = "../css/accounts.css">
+    <link rel = "stylesheet" href = "../css/cards.css">
+    <link rel = "stylesheet" href = "../style.css">
+    <link rel = "stylesheet" href = "../css/loans.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  </head>
+  <body>
+    <div class = "body-main" id = "app">
+      <div class="sidebar__main sidebar__expand">
+        <div class="sidebar__main-top">
+          <div class="div__center div__lobster">
+            <span class = "navbar__txt"> American Bank </span>
+          </div>
+        </div>
+        <div class="sidebar__profile">
+          <div class="div__center div__flex">
+            <img id = "profile-picture" src="https://loveshayariimages.in/wp-content/uploads/2022/03/High-Quality-New-Alone-Whatsapp-Dp-Profile-Images-pictures-2021-scaled.gif" alt="" width = "80px" height = "80px">
+            <span class = "sidebar__txt">
+              <p style = "color: white;"> {{ currentSession.firstName + " " + currentSession.lastName }} </p>
+              <p style = "color: #6c7293;"> {{ currentSession.role }} </p>
+            </span>
+
+          </div>
+        </div>
+        <div class="sidebar__menu">
+          <ul>
+            <li><a class ="sidebar__a " href="accounts.html"><i class="fa-solid fa-file-circle-plus side-icon"></i><span class = "sidebar__txt"> Accounts </span></a></li>
+            <li><a class ="sidebar__a " href="loans.html"><i class="fa-solid fa-magnifying-glass-dollar side-icon"></i><span class = "sidebar__txt"> Loans </span></a></li>
+            <li><a class ="sidebar__a " href="cards.html"><i class="fa-solid fa-credit-card side-icon"></i><span class = "sidebar__txt"> Cards </span></a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="content__main content__main-collapse">
+        <div class="navbar__main navbar__main-collapse">
+          <ul class = "div__flex">
+            <div class="navbar_left div__flex">
+              <li id = "sidebar-collapse"><a href="#"><i class="fa-solid fa-bars"></i></a></li>
+            </div>
+            <div class="navbar_center">
+              <li><a href="#"><span style = "color: white" class = "navbar__txt div__lobster div__hidden"> American Bank </span></a></li>
+            </div>
+            <div class="navbar_right div__flex">
+              <li @click="addCard()" ><a href="#" class = "txt__success"><i class="fa-solid fa-credit-card"></i></a></li>
+              <li><a href="#" class = "txt__error"><i class="fa-solid fa-right-from-bracket"></i></a></li>
+            </div>
+          </ul>
+        </div>
+        <div class = "div__content div__content__main">
+          <div class="night">
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+            <div class="shooting_star"></div>
+          </div>
+          <div class="div__card-container ">
+            <div v-for="loan in existingLoans" class="div__card div__flex bg--titanium" @click = "changeActiveLoan(loan)">
+              <div class="div__card-info ">
+                <div class="div__card-info-details" style = "margin-top: 5%;">
+                  <p class = "no-mp div__bold div__lobster" > Name </p>
+                  <p class = "no-mp"> {{ loan.nameOfLoan }} </p>
+                  <p class = "no-mp div__bold div__lobster" > Max Amount </p>
+                  <p class = "no-mp"> {{ loan.maxAmountOfLoan }} </p>
+                  <p class = "no-mp div__bold div__lobster" > Payment options </p>
+                  <p class = "no-mp"> {{ loan.paymentsOfLoan }} </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="div__card full-height bg--titanium" style = "cursor: default;">
+          <template v-if = "currentLoanActive == 'YES'">
+              <div class="div__form div__center">
+                <form class="" @submit="createLoan" id = "">
+
+                  <label for="lname" class ="div__lobster">Amount you want to get</label>
+                  <input type="number" id="amount" placeholder="">
+
+                  <label for="select-payment" class ="div__lobster">Choose a payment option</label>
+                  <select id="selectpayment">
+                    <option v-for="item in currentLoan.paymentsOfLoan" :value="item"> {{ item }} </option>
+                  </select>
+                  <input type="submit" value="Submit">
+                </form>
+              </div>
+          </template>
+          </div>
+
+        </div>
+        </div>
+      </div>
+    </div>
+    <!-- //////////////////////////////////// -->
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js" integrity="sha512-xIPqqrfvUAc/Cspuj7Bq0UtHNo/5qkdyngx6Vwt+tmbvTLDszzXM0G6c91LXmGrRx8KEPulT+AfOOez+TeVylg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src = "../js/cards.js" type="text/javascript"></script>
+    <script src = "../js/sidebar.js" type="text/javascript"></script>
+  </body>
+</html>

@@ -1,0 +1,368 @@
+*{
+    font-family: 'Roboto', sans-serif;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 0.5rem;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0 , 0.4);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.nav{
+    display: flex;
+    font-size: 20px;
+    background-color: transparent;
+    justify-content: space-between;
+    height: 40px;
+    color: white;
+    transition: 0.4s;
+}
+
+.nav-start{
+    justify-content: start;
+}
+
+.nav-center{
+    justify-content: center;
+}
+
+.nav-end{
+    justify-content: end;
+}
+
+.nav-centered{
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.nav-list{
+    margin: 0;
+    padding: 0;
+}
+
+.nav-title{
+    margin-left: 2%;
+}
+
+.nav-list{
+    display: flex;
+    width: auto;
+    height: 100%;
+}
+
+.nav ul{
+    height: 40px;
+}
+
+.nav-item{
+    height: 100%;
+    margin: auto;
+}
+
+.nav-item a{
+    display: block;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    color: white;
+}
+
+.nav-item a:hover{
+    transition: 2ms all;
+    color: black;
+    background-color: white;
+}
+
+.active{
+    transition: 2ms all;
+}
+
+.container-flex{
+    display: flex;
+}
+
+.container-flex-left{
+    justify-content: start;
+}
+
+.container-flex-right{
+    width: auto;
+    background-color: white;
+    padding: 1rem;
+    justify-content: end;
+}
+
+.container-hero{
+    height: 100vh;
+    width: 100%;
+    background-image: url("https://www.teahub.io/photos/full/123-1239982_deutsche-bank.jpg");
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.container-divider{
+    width: 100%;
+    height: 40px;
+    background-color: black;
+    text-align: center;
+    font-weight: bold;
+    color: white;
+    margin: auto;
+}
+
+.card-container{
+    width: 250px;
+    height: 100px;
+    background-color: #05abe3;
+    color: black;
+    font-weight: bold;
+    padding: 1rem;
+    font-size: 14px;
+}
+
+.card-container i{
+    font-size: 35px;
+}
+
+.hero-text{
+    position: absolute;
+    margin-top: 40vh;
+    margin-left: 30vw;
+    text-align: center;
+    font-size: 50px;
+    color: white;
+    border: 2px solid white;
+    padding: 20px;
+}
+
+.hero-text .small{
+    font-size: 30px;
+}
+
+.hero-text .small span:before{
+    content: '';
+    /*animation: changingText 8s infinite;*/
+}
+
+.coin{
+    animation: rotating 2s infinite;
+}
+
+.sidebar{
+    height: 100%;
+    position: fixed;
+    background-color: #31353e;
+    color: #818896;
+}
+
+.sidebar-collapse{
+    width: 6%;
+}
+
+.sidebar-expand{
+    width: 17%;
+}
+
+.sidebar-header{
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #2c3138;
+    box-shadow: 0 4px 2px -2px black;
+}
+
+.user-img img{
+    margin-top: 1rem;
+    max-width: 70px;
+    max-height: 70px;
+}
+
+.header-content .user-content{
+    height: 40%;
+}
+
+.sidebar-content{
+    height: 70%;
+    overflow-y: auto;
+}
+
+ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-menu li {
+    width: 100%;
+    height: auto;
+
+}
+
+.header-head a{
+    display: block;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    color: #818896;
+}
+
+.header-head a:hover{
+    filter: brightness(120%);
+    background-color: #383946;
+}
+
+.sidebar-menu a{
+    text-decoration: none;
+    color: #818896;
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+}
+
+.sidebar-menu a i{
+    padding: 5px;
+    background-color: #393b48;
+    border-radius: 3px;
+}
+
+.f-size20{
+    font-size: 20px;
+}
+
+
+
+.sidebar-menu a:hover{
+    filter: brightness(120%);
+    background-color: #383946;
+}
+
+.sidebar-menu a:hover i{
+    animation: tilt-shaking 0.5s;
+    filter: brightness(150%);
+}
+
+.main-content-expanded{
+    width: 82%;
+    margin-left: 17%;
+}
+
+.main-content-collapsed{
+    margin-left: 6%;
+    width: 93%;
+}
+
+.top-menu{
+    position: fixed;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    width: 83%;
+    height: 10%;
+    margin: auto;
+    box-shadow: 0 4px 2px -2px gray;
+}
+
+#collapse-icon{
+    font-size: 20px;
+    color: black
+}
+
+i:hover{
+    animation: tilt-shaking 0.5s;
+    filter: brightness(150%);
+}
+
+#collapse-icon:hover{
+    color: rgba(0, 0, 0, 0.5);
+}
+
+a{
+    text-decoration: none;
+}
+
+.top-menu-item{
+    height: 100%;
+    margin: auto;
+}
+
+.top-menu-item a{
+    display: block;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    color: black;
+}
+
+.top-menu-item a:hover{
+    transition: 2ms all;
+    color: white;
+    background-color: black;
+}
+
+.main-container{
+
+}
+
+@keyframes tilt-shaking {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(5deg); }
+    50% { transform: rotate(0deg); }
+    75% { transform: rotate(-5deg); }
+    100% { transform: rotate(0deg); }
+}
+
+@keyframes rotating{
+    /*10%{
+        transform: rotateY(36deg);
+    }*/
+    20%{
+        transform: rotateY(72deg);
+    }
+    /*30%{
+        transform: rotateY(108deg);
+    }
+    40%{
+        transform: rotateY(144deg);
+    }*/
+    /*50%{
+        transform: rotateY(180deg);
+    }
+    60%{
+        transform: rotateY(216deg);
+    }*/
+    /*70%{
+        transform: rotateY(252deg);
+    }
+    80%{
+        transform: rotateY(288deg);
+    }*/
+    /*90%{
+        transform: rotateY(324deg);
+    }*/
+    100%{
+        transform: rotateY(360deg);
+    }
+
+}

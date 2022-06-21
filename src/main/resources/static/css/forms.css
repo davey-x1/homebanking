@@ -1,0 +1,197 @@
+/* CHANGE RESPONSIVE 757W  */
+
+.modal-background{
+  top: 0;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.modal__content{
+  margin-top: 5%;
+  margin-left: 10%;
+  margin-right: 15%;
+  margin-bottom: 5%;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.modal--content{
+  display: flex;
+}
+
+.modal__left{
+  width: 35%;
+}
+
+.modal__right{
+  width: 65%;
+}
+
+ul{
+  list-style: none;
+}
+
+.modal-bottom{
+  width: 100%;
+  background-color: black;
+}
+
+.modal-bottom ul{
+  display: flex;
+  padding: 0;
+  margin: 0;
+  justify-content: space-around;
+}
+
+.modal-bottom ul .menu-li-right{
+  display: flex;
+}
+
+.modal-bottom ul li{
+  color: white;
+  padding: 0.5rem;
+  background: linear-gradient(to top, black 50%, white 50%);
+  background-size: 100% 200%;
+  background-position: bottom;
+  transition: all 1s ease;
+}
+
+.modal-bottom ul li a{
+  display: block;
+  text-decoration: none;
+  color: white;
+  transition:all 1s ease;
+}
+
+.modal-bottom ul li:hover{
+  color: black;
+  background-position: top;
+}
+
+.modal-bottom ul li:hover > a{
+  color: black;
+}
+
+.modal-form{
+  padding: 1rem;
+  justify-content: center;
+}
+
+.modal__form{
+  text-align: center;
+}
+
+.modal__title{
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+input{
+  outline: none;
+  border: none;
+}
+
+.input-container{
+  text-align: center;
+  position: relative;
+  margin-bottom: 3%;
+}
+
+.input__field{
+  display: block;
+  color: #666;
+  background-color: #e6e6e6;
+  font-size: 16px;
+  padding: 0px 30px 0px 60px;
+  border-radius: 10px;
+  height: 50px;
+  width: 100%;
+}
+
+.input__icon{
+  transform-origin: center;
+  color: #666;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  top: 0;
+  padding: 20px 0px 0px 20px;
+}
+
+.input__field:focus{
+  animation-name: highlightAn;
+  animation-duration: 300ms;
+  animation-iteration-count: 1;
+}
+
+.input__field:focus + .input__icon{
+  color: #2394f7;
+  font-weight: bold;
+  transform-origin: center;
+  animation-name: tilt-shaking;
+  animation-duration: 0.3s;
+  animation-iteration-count: infinite
+}
+
+button{
+  border-radius: 10px;
+  border: none;
+  padding: 10px 30px 10px 30px;
+  transition:all 1s ease;
+  width: 70%;
+  margin-bottom: 3%;
+}
+
+button:hover{
+  background-position:right bottom;
+}
+
+.btn_valid{
+  background: linear-gradient(to right, #1b7cd1 50%, #2394f7 50%);
+  background-size: 200% 100%;
+  background-position:left bottom;
+  color: white;
+}
+
+.btn_error{
+  background: linear-gradient(to right, #d11b3d 50%, #fc264e 50%);
+  background-size: 200% 100%;
+  background-position:left bottom;
+  color: white;
+}
+
+@keyframes scaleUp {
+    0% {transform: scale(1.2) translateY(50px); opacity: 0; }
+    20% {transform: scale(1.15) translateY(40px); opacity: 0.10;}
+    40% {transform: scale(1.10) translateY(30px); opacity: 0.20;}
+    60% {transform: scale(1.05) translateY(20px); opacity: 0.40;}
+    80% {transform: scale(1.01) translateY(10px); opacity: 0.80;}
+    100% {transform: scale(1) translateY(0); opacity: 1;}
+}
+
+@keyframes highlightAn {
+  0% { border: 1px solid #2394f7; border-filter: brightness(0%); box-shadow: 0 0 0 #2394f7;}
+  50% { border: 1px solid #2394f7; border-filter: brightness(300%); box-shadow: 0 0 10px #2394f7;}
+  100% { border: 1px solid #2394f7; border-filter: brightness(0%); box-shadow: 0 0 0 #2394f7;}
+}
+
+@keyframes scaleDown {
+    0% {transform: scale(1) translateY(0); opacity: 1; }
+    20% {transform: scale(1.01) translateY(20px); opacity: 0.80;}
+    40% {transform: scale(1.05) translateY(40px); opacity: 0.40;}
+    60% {transform: scale(1.10) translateY(60px); opacity: 0.20;}
+    80% {transform: scale(1.15) translateY(80px); opacity: 0.10;}
+    100% {transform: scale(1.2) translateY(100px); opacity: 0;}
+}
+
+@keyframes tilt-shaking {
+    0% { transform-origin: center; transform: rotate(0deg); }
+    25% { transform-origin: center; transform: rotate(5deg); }
+    50% { transform-origin: center; transform: rotate(0deg); }
+    75% { transform-origin: center; transform: rotate(-5deg); }
+    100% { transform-origin: center; transform: rotate(0deg); }
+}
