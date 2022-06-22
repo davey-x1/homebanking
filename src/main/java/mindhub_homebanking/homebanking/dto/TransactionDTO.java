@@ -14,13 +14,13 @@ public class TransactionDTO {
     public LocalDate date;
     public AccountEntity account;
 
-
+    public long lastAmount;
     public TransactionDTO(TransactionEntity transaction) {
         this.id = transaction.getId();
-        //this.type = transaction.getType();
         this.amount = transaction.getAmount();
         this.description = transaction.getDescription();
         this.date = transaction.getDate();
         this.account = transaction.getAccount();
+        this.lastAmount = transaction.getLastAmount();
     }
 }

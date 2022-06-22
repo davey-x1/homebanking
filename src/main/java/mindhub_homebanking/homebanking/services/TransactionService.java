@@ -84,6 +84,7 @@ public class TransactionService {
             AccountEntity cuenta1 = cuentaOrigen.get();
             AccountEntity cuenta2 = cuentaDestino.get();
             newTransaction1.setDescription(description);
+            newTransaction1.setLastAmount(cuenta1.getBalanceOfAccount() - monto);
             cuenta1.setBalanceOfAccount(cuenta1.getBalanceOfAccount() - monto);
             newTransaction1.setAmount(monto);
             newTransaction1.setAccount(cuenta1);
@@ -91,6 +92,7 @@ public class TransactionService {
             newTransaction1.setDate(fecha);
             // ---------------------------------
             newTransaction2.setDescription(description);
+            newTransaction2.setLastAmount(cuenta2.getBalanceOfAccount() + monto);
             cuenta2.setBalanceOfAccount(cuenta2.getBalanceOfAccount() + monto);
             newTransaction2.setAmount(monto);
             newTransaction2.setAccount(cuenta2);
@@ -108,5 +110,30 @@ public class TransactionService {
             transaccionesFinales.add(newTransaction2);
         }
         return transaccionesFinales;
+    }
+
+    public TransactionEntity addSingleTransaction(TransactionEntity transaction){
+        LocalDate fecha = LocalDate.now();
+        Optional<AccountEntity> accountEntity = accountRepository.findById(transaction.getAccount().getId());
+        AccountEntity accountUsed = accountEntity.get();
+        transaction.setDate(fecha);
+        if(transaction.getType() == "CREDIT"){
+            transaction.setLastAmount(accountUsed.getBalanceOfAccount() + transaction.getAmount());
+            accountUsed.setBalanceOfAccount(accountUsed.getBalanceOfAccount() + transaction.getAmount());
+        } else {
+            transaction.setLastAmount(accountUsed.getBalanceOfAccount() - transaction.getAmount());
+            accountUsed.setBalanceOfAccount(accountUsed.getBalanceOfAccount() - transaction.getAmount());
+        }
+        TransactionEntity finalTransaction = repository.save(transaction);
+        accountUsed.addTransaction(finalTransaction);
+        accountRepository.save(accountUsed);
+        return finalTransaction;
+    }
+
+    public void deleteTransactionById(Long id) {
+        Optional<TransactionEntity> transaction = repository.findById(id);
+        if(transaction.isPresent()) {
+            repository.deleteById(id);
+        }
     }
 }

@@ -21,6 +21,7 @@ public class TransactionEntity {
     private String description;
     private LocalDate date;
 
+    private long lastAmount;
     @JsonBackReference(value = "transactionEntitiesReference")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="account")
@@ -52,6 +53,10 @@ public class TransactionEntity {
         return date;
     }
 
+    public long getLastAmount(){
+        return lastAmount;
+    }
+
     public AccountEntity getAccount(){
         return account;
     }
@@ -76,6 +81,10 @@ public class TransactionEntity {
 
     public void setAccount(AccountEntity account){
         this.account = account;
+    }
+
+    public void setLastAmount(long lastAmount) {
+        this.lastAmount = lastAmount;
     }
 }
 

@@ -28,7 +28,7 @@
         </div>
         <div class="sidebar__menu">
           <ul>
-            <li><a class ="sidebar__a " href=accounts.html><i class="fa-solid fa-file-circle-plus side-icon"></i><span class = "sidebar__txt"> Accounts </span></a></li>
+            <li><a class ="sidebar__a " href="accounts.html"><i class="fa-solid fa-file-circle-plus side-icon"></i><span class = "sidebar__txt"> Accounts </span></a></li>
             <li><a class ="sidebar__a " href="loans.html"><i class="fa-solid fa-magnifying-glass-dollar side-icon"></i><span class = "sidebar__txt"> Loans </span></a></li>
             <li><a class ="sidebar__a " href="cards.html"><i class="fa-solid fa-credit-card side-icon"></i><span class = "sidebar__txt"> Cards </span></a></li>
           </ul>
@@ -106,6 +106,7 @@
                       <th> Amount </th>
                       <th> Type </th>
                       <th> Description </th>
+                      <th> Last Amount </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -114,6 +115,7 @@
                       <td> {{ transaction.amount }} </td>
                       <td> {{ transaction.type }} </td>
                       <td> {{ transaction.description }} </td>
+                      <td> {{ transaction.lastAmount }} </td>
                     </tr>
                   </tbody>
                 </table>

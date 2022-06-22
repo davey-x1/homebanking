@@ -22,6 +22,10 @@ public class ClientLoanEntity {
     private int amount;
     private int paymentOfLoans;
 
+    @JsonBackReference(value = "accountOfLoanReference")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "account_id")
+    AccountEntity accountOfLoan;
     @JsonBackReference(value = "ownerOfLoanClientReference")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "client_id")
@@ -63,6 +67,10 @@ public class ClientLoanEntity {
         this.loanEntity = loan;
     }
 
+    public void setAccountOfLoan(AccountEntity account){
+        this.accountOfLoan = account;
+    }
+
     /* --------------------------------------- */
     //              GETTERS
     /* --------------------------------------- */
@@ -90,6 +98,10 @@ public class ClientLoanEntity {
 
     public int getIdOfLoan(){
         return fk_loanid;
+    }
+
+    public AccountEntity getAccountOfLoan(){
+        return accountOfLoan;
     }
 }
 

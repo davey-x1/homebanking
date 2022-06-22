@@ -1,6 +1,7 @@
 package mindhub_homebanking.homebanking.repositories.models;
 /* ------------------------------------------- */
 
+import ch.qos.logback.core.net.server.Client;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.GenericGenerator;
@@ -28,9 +29,13 @@ public class AccountEntity {
     @JoinColumn(name="accountOwner_id")
     private ClientEntity accountOwner;
 
+    @JsonManagedReference(value = "accountOfLoanReference")
+    @OneToMany(mappedBy="accountOfLoan", fetch=FetchType.EAGER)
+    Set<ClientLoanEntity> clientLoanEntities = new HashSet<>();
     @JsonManagedReference(value = "transactionEntitiesReference")
     @OneToMany(mappedBy="account", fetch=FetchType.EAGER)
     Set<TransactionEntity> transactionEntities = new HashSet<>();
+
 
     /* --------------------------------------- */
     public AccountEntity() {
@@ -61,6 +66,10 @@ public class AccountEntity {
 
     public void setAccountType(String type){
        this.accountType = type;
+    }
+
+    public void setClientLoanEntities(ClientLoanEntity clientLoan){
+        this.clientLoanEntities.add(clientLoan);
     }
 
     /* --------------------------------------- */
@@ -95,5 +104,8 @@ public class AccountEntity {
 
     }
 
+    public Set<ClientLoanEntity> getClientLoanEntities(){
+        return clientLoanEntities;
+    }
 }
 

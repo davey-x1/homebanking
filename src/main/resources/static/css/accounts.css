@@ -1,4 +1,8 @@
 
+:root{
+  --bg-dashboard: #14141a
+}
+
 ul{
   margin: 0;
   padding: 0;
@@ -6,7 +10,7 @@ ul{
 
 .div__card{
   position: relative;
-  background-color: #14141a;
+  background-color: var(--bg-dashboard);
   /*box-shadow: rgba(245, 245, 252, 0.2) 0px 5px 15px;*/
   height: 10rem;
   margin: 1%;
@@ -140,11 +144,11 @@ thead{
 thead tr{
   background-color: transparent;
   color: rgb(108, 114, 147);
-  padding: 10px;
+  padding: 5px;
 }
 
 td{
-  padding: 40px;
+  padding: 10px;
 }
 
 tbody tr{

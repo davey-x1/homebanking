@@ -6,12 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import mindhub_homebanking.homebanking.repositories.AccountRepository;
 import mindhub_homebanking.homebanking.repositories.ClientLoanRepository;
 import mindhub_homebanking.homebanking.repositories.LoanRepository;
-import mindhub_homebanking.homebanking.repositories.models.ClientEntity;
+import mindhub_homebanking.homebanking.repositories.models.*;
 import mindhub_homebanking.homebanking.repositories.ClientRepository;
-import mindhub_homebanking.homebanking.repositories.models.ClientLoanEntity;
-import mindhub_homebanking.homebanking.repositories.models.LoanEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,12 +21,17 @@ import org.springframework.stereotype.Service;
 public class ClientLoanService {
     @Autowired
     ClientLoanRepository clientLoanRepository;
-
     @Autowired
     LoanRepository loanRepository;
-
     @Autowired
     ClientRepository clientRepository;
+
+    @Autowired
+    AccountRepository accountRepository;
+
+    @Autowired
+    TransactionService transactionService;
+
 
     public List<ClientLoanEntity> getAllClientLoans() {
         List<ClientLoanEntity> accountsList = clientLoanRepository.findAll();
@@ -59,18 +63,23 @@ public class ClientLoanService {
             return entityUsed;
         } else {
             ClientLoanEntity entityUsed = new ClientLoanEntity();
-
+            TransactionEntity transactionEntity = new TransactionEntity();
+            AccountEntity accountEntity = accountRepository.getById(entity.getAccountOfLoan().getId());
             ClientEntity clientEntity = clientRepository.getById(entity.getOwnerOfLoan().getId());
             LoanEntity loanEntity = loanRepository.getById(entity.getLoanEntity().getId());
             entityUsed.setPaymentOfLoans(entity.getPaymentOfLoans());
             entityUsed.setAmountOfLoan(entity.getAmountOfLoan());
-            System.out.println("Before owner ");
             entityUsed.setOwnerOfLoan(clientEntity);
-
             entityUsed.setLoanEntity(loanEntity);
             entityUsed.setLoanId((int) loanEntity.getId());
             entityUsed.setNameOfLoan(loanEntity.getNameOfLoan());
-
+            // ----------------------------------- //
+            transactionEntity.setAccount(accountEntity);
+            transactionEntity.setType("CREDIT");
+            transactionEntity.setDescription(loanEntity.getNameOfLoan() + " loan");
+            transactionEntity.setAmount(entity.getAmountOfLoan());
+            transactionService.addSingleTransaction(transactionEntity);
+            // ----------------------------------- //
             clientEntity.setLoansOwned(entityUsed);
             loanEntity.setLoansOwned(entityUsed);
             clientRepository.save(clientEntity);

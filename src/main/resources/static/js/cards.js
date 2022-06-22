@@ -181,6 +181,10 @@ Vue.createApp({
         // ----------------------------------------
         changeTemplate(template){
             this.actualTemplate = template;
+        },
+        logout: function(){
+          axios.post('../api/logout').then(response => console.log('signed out!!!'));
+          window.location.href = '../pages/login.html';
         }
     }
 }).mount('#app')

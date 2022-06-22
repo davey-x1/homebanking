@@ -107,7 +107,6 @@ public class ClientEntity {
         this.accountsOwned.add(account);
     }
     public void addCardsOwned(CardEntity card){
-        System.out.println("Before adding card");
         this.cardsOwned.add(card);
     }
 }

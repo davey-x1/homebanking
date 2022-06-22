@@ -104,7 +104,6 @@ Vue.createApp({
               confirmButtonText: 'Checking',
               denyButtonText: 'Savings',
             }).then(result => {
-              /* Read more about isConfirmed, isDenied below */
               if (result.isConfirmed) {
                 this.refreshSession();
                 let accountCreated = {};
@@ -119,7 +118,7 @@ Vue.createApp({
                     url: '/account/create',
                     data: accountCreated
                 })
-                    .then(function (response) {
+                    .then((response) => {
                         console.log(response);
                         Swal.fire(
                           "Success!",
@@ -128,7 +127,7 @@ Vue.createApp({
                         );
                         this.refreshSession();
                     })
-                    .catch(function (error) {
+                    .catch((error) => {
                         console.log(error);
                     });
                 Swal.fire('Created!', '', 'success');
@@ -141,9 +140,6 @@ Vue.createApp({
                     accountType: "SAVING"
                   };
 
-                  console.log(accountCreated);
-                  console.log(clientCreated);
-
                   // -----------------------------------
                   //accountCreated.accountOwner = clientCreated;
                   //accountCreated.accountType = "SAVINGS";
@@ -153,8 +149,7 @@ Vue.createApp({
                       url: '/account/create',
                       data: accountCreated
                   })
-                      .then(function (response) {
-                          console.log(response);
+                      .then((response) => {
                           Swal.fire(
                             "Success!",
                             "Your account has been created",
@@ -162,15 +157,12 @@ Vue.createApp({
                           );
                           this.refreshSession();
                       })
-                      .catch(function (error) {
+                      .catch((error) => {
                           console.log(error);
                       });
                 Swal.fire('Created!', '', 'success');
               }
             })
-
-
-
           }
           this.refreshSession();
         },
@@ -192,7 +184,6 @@ Vue.createApp({
                 "You need atleast one account to be with us",
                 'error'
               );
-              this.refreshSession();
             } else {
               axios.delete('/account/' + account.id)
               .then((response) => Swal.fire(
@@ -215,7 +206,6 @@ Vue.createApp({
             axios.get('/account/' + account_id)
             .then((response) => response)
             .then(result => {
-                console.log(result.data);
                 this.transactionData = result.data.transactionEntities;
                 this.accountChosen = result.data.numberOfAccount;
                 });
@@ -225,7 +215,6 @@ Vue.createApp({
         createTransaction(){
           console.log(this.usedAccount);
           if(JSON.stringify(this.usedAccount) == JSON.stringify({})){
-            console.log("xd");
             Swal.fire(
               'Error!',
               'You have to choose an account in order to create a transaction',
@@ -256,8 +245,20 @@ Vue.createApp({
               axios.post('../transactions/create',
               "monto=" + monto + "&description=" + description + "&cuentaOrigen=" + cuentaOrigen + "&cuentaDestino=" + cuentaDestino,
               {headers:{'content-type':'application/x-www-form-urlencoded'}})
-              .then(response => { console.log(response); })
-              .catch(response => { console.log(response); })
+              .then((response) => {
+                Swal.fire(
+                "Success!",
+                "Your money has been sent",
+                'success'
+              );
+            })
+              .catch((response) => {
+                Swal.fire(
+                  "Error!",
+                  response,
+                  'error'
+                );
+          })
               /*Swal.fire(`
                 Login: ${result.value.login}
                 Password: ${result.value.password}

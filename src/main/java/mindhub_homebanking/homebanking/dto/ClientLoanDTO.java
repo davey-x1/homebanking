@@ -1,6 +1,7 @@
 package mindhub_homebanking.homebanking.dto;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import mindhub_homebanking.homebanking.repositories.models.AccountEntity;
 import mindhub_homebanking.homebanking.repositories.models.ClientEntity;
 import mindhub_homebanking.homebanking.repositories.models.ClientLoanEntity;
 import mindhub_homebanking.homebanking.repositories.models.LoanEntity;
@@ -16,6 +17,8 @@ public class ClientLoanDTO {
     public int paymentOfLoans;
     private ClientEntity ownerOfLoan;
     private LoanEntity loanEntity;
+
+    private AccountEntity accountOfLoan;
     public ClientLoanDTO(ClientLoanEntity loan) {
         this.id = loan.getId();
         this.fk_loanid = loan.getIdOfLoan();
@@ -24,5 +27,6 @@ public class ClientLoanDTO {
         this.paymentOfLoans = loan.getPaymentOfLoans();
         this.ownerOfLoan = loan.getOwnerOfLoan();
         this.loanEntity = loan.getLoanEntity();
+        this.accountOfLoan = loan.getAccountOfLoan();
     }
 }

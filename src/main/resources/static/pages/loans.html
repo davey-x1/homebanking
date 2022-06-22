@@ -48,7 +48,7 @@
             </div>
             <div class="navbar_right div__flex">
               <li @click="addCard()" ><a href="#" class = "txt__success"><i class="fa-solid fa-credit-card"></i></a></li>
-              <li><a href="#" class = "txt__error"><i class="fa-solid fa-right-from-bracket"></i></a></li>
+              <li @click="logout()" ><a href="#" class = "txt__error"><i class="fa-solid fa-right-from-bracket"></i></a></li>
             </div>
           </ul>
         </div>
@@ -104,7 +104,7 @@
                   <label for="selectaccountoption" class ="div__lobster">Choose an account destination</label>
                   <select id="selectaccountoption">
                     <option value="">Select an account</option>
-                    <option v-for="item in currentSession.accountsOwned" :value="item"> {{ item.numberOfAccount }} </option>
+                    <option v-for="item in currentSession.accountsOwned" :value="item.id"> {{ item.numberOfAccount }} </option>
                   </select>
 
                   <label for="selectpaymentoption" class ="div__lobster">Choose a payment option</label>

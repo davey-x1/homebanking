@@ -47,7 +47,7 @@
             </div>
             <div class="navbar_right div__flex">
               <li @click="addCard()" ><a href="#" class = "txt__success"><i class="fa-solid fa-credit-card"></i></a></li>
-              <li><a href="#" class = "txt__error"><i class="fa-solid fa-right-from-bracket"></i></a></li>
+              <li  @click="logout()" ><a href="#" class = "txt__error"><i class="fa-solid fa-right-from-bracket"></i></a></li>
             </div>
           </ul>
         </div>
@@ -103,7 +103,7 @@
             <div id ="cardholder" class = "cardholder">
               <template v-for="(card, property) in currentSession.cardsOwned">
                 <div v-if = "card.cardColor == accountTypeChosen" class="card">
-                  <div class="card__front card__part bg--titanium">
+                  <div class="card__front card__part bg--gold">
                     <div class="card__title">
                       <div class="card_top_title">
                         <div>
@@ -131,7 +131,7 @@
                     </div>
                   </div>
                   <div class="card__back">
-                    <div class="card_back card__part card__back-not-turned bg--titanium">
+                      <div class="card_back card__part card__back-not-turned bg--gold">
                       <div class="card__black-line"></div>
                       <div class="card__back-content">
                         <div class="card__secret">

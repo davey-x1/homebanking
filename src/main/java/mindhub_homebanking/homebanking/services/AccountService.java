@@ -1,11 +1,9 @@
 package mindhub_homebanking.homebanking.services;
 /* ---------------------------------- */
 
+import java.lang.reflect.Array;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 
 /* ---------------------------------- */
 
@@ -13,6 +11,7 @@ import mindhub_homebanking.homebanking.repositories.models.AccountEntity;
 import mindhub_homebanking.homebanking.repositories.models.ClientEntity;
 import mindhub_homebanking.homebanking.repositories.AccountRepository;
 import mindhub_homebanking.homebanking.repositories.ClientRepository;
+import mindhub_homebanking.homebanking.repositories.models.TransactionEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +23,9 @@ public class AccountService {
     AccountRepository repository;
     @Autowired
     ClientRepository clientRepository;
+
+    @Autowired
+    TransactionService transactionService;
     public List<AccountEntity> getAllAcounts()
     {
         List<AccountEntity> accountsList = repository.findAll();
@@ -93,10 +95,15 @@ public class AccountService {
             return entity;
         }
     }
-
     public void deleteAccountById(Long id) {
         Optional<AccountEntity> account = repository.findById(id);
         if(account.isPresent()) {
+            Set<TransactionEntity> listOfTransactions = account.get().getTransactionEntities();
+            List<TransactionEntity> list = new ArrayList<TransactionEntity>(listOfTransactions);
+            for(int i = 0; i < list.size(); i++){
+                TransactionEntity array = list.get(i);
+                transactionService.deleteTransactionById(array.getId());
+            }
             repository.deleteById(id);
         }
     }

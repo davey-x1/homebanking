@@ -22,7 +22,6 @@ public class LoanEntity {
     private long id;
     private String name;
     private int maxAmount;
-
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "payments", joinColumns = @JoinColumn(name = "payments_id"))
     private Set<Integer> payments = new HashSet<>();

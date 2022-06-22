@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:wght@400;900&display=swap');
 
+:root{
+  --bg-dashboard: #14141a;
+}
+
 body{
   margin: 0;
   padding: 0;
@@ -23,7 +27,7 @@ a{
 
 .content__main{
   height: 100%;
-  background-color: #14141a;
+  background-color: var(--bg-dashboard);
 }
 
 .content__main-collapse{
