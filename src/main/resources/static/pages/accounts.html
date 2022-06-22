@@ -44,8 +44,9 @@
               <li><a href="#"><span style = "color: white" class = "navbar__txt div__lobster div__hidden"> American Bank </span></a></li>
             </div>
             <div class="navbar_right div__flex">
+              <li @click="createTransaction()" ><a href="#" class = "txt__success"><i class="fa-solid fa-file-circle-plus"></i></a></li>
               <li @click="addAccount()" ><a href="#" class = "txt__success"><i class="fa-solid fa-file-circle-plus"></i></a></li>
-              <li><a href="#" class = "txt__error"><i class="fa-solid fa-right-from-bracket"></i></a></li>
+              <li  @click="logout()" ><a href="#" class = "txt__error"><i class="fa-solid fa-right-from-bracket"></i></a></li>
             </div>
           </ul>
         </div>

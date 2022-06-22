@@ -1,7 +1,9 @@
 package mindhub_homebanking.homebanking.repositories.models;
 /* ------------------------------------------- */
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -30,10 +32,10 @@ public class CardEntity {
 
     private LocalDate thruDate;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonBackReference(value = "cardsOwnedReference")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="client_id")
-    private ClientEntity owner;
+    private ClientEntity cardOwner;
 
 
 
@@ -49,11 +51,9 @@ public class CardEntity {
        return id;
     }
 
-    @JsonIgnore
-    public ClientEntity getOwnerOfAccount(){
-           return owner;
+    public ClientEntity getCardOwner(){
+           return cardOwner;
     }
-
     public long getNumber(){
        return number;
     }
@@ -80,9 +80,8 @@ public class CardEntity {
 
     /* --------------------------------------- */
 
-    @JsonProperty
-    public void setOwnerOfCard(ClientEntity client){
-        this.owner = client;
+    public void setCardOwner(ClientEntity client){
+        this.cardOwner = client;
     }
 
     public void setNumber(long number){

@@ -27,10 +27,9 @@ public class LoanEntity {
     @CollectionTable(name = "payments", joinColumns = @JoinColumn(name = "payments_id"))
     private Set<Integer> payments = new HashSet<>();
 
-    @JsonIgnore
-    @JsonManagedReference(value = "loanEntityReference")
+    @JsonBackReference(value = "clientLoanEntityReference")
     @OneToMany(mappedBy = "loanEntity", fetch=FetchType.EAGER)
-    Set<ClientLoan> loansOwned = new HashSet<>();
+    private Set<ClientLoanEntity> loansOwned = new HashSet<>();
 
 
     /* --------------------------------------- */
@@ -54,8 +53,7 @@ public class LoanEntity {
         this.payments.add(payment);
     }
 
-    @JsonProperty
-    public void setLoansOwned(ClientLoan loan){
+    public void setLoansOwned(ClientLoanEntity loan){
         this.loansOwned.add(loan);
     }
 
@@ -79,8 +77,7 @@ public class LoanEntity {
         return payments;
     }
 
-    @JsonIgnore
-    public Set<ClientLoan> getLoansOwned(){
+    public Set<ClientLoanEntity> getLoansOwned(){
         return loansOwned;
     }
 

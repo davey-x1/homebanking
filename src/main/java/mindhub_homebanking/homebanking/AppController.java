@@ -64,10 +64,11 @@ public class AppController {
         newAccount.setOwnerOfAccount(newClient);
         newAccount.setCreationDateOfAccount(fecha);
         newAccount.setAccountType("SAVINGS");
-        newClient.addAccount(newAccount);
-
+        newClient.addAccountsOwned(newAccount);
         clientRepository.save(newClient);
         accountRepository.save(newAccount);
+
+
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -78,7 +79,7 @@ public class AppController {
         Optional<ClientEntity> clientOptional = clientRepository.findByEmail(authentication.getName());
         if(clientOptional.isPresent()){
             ClientEntity client = clientOptional.get();
-
+            System.out.println(client.getAccountsOwned());
             return client;
         }
         return null;

@@ -78,8 +78,8 @@ public class CardService {
         System.out.println(entity.toString());
         if(card.isPresent()){
             CardEntity newCard = card.get();
-            ClientEntity clientEntity = newCard.getOwnerOfAccount();
-            newCard.setOwnerOfCard(newCard.getOwnerOfAccount());
+            ClientEntity clientEntity = clientRepository.getById(entity.getCardOwner().getId());
+            newCard.setCardOwner(newCard.getCardOwner());
             newCard.setCardColor(entity.getCardColor());
             newCard.setCvv(entity.getCvv());
             newCard.setNumber(entity.getNumber());
@@ -87,29 +87,22 @@ public class CardService {
             newCard.setCardType(entity.getCardType());
             newCard.setThruDate(entity.getThruDate());
 
-            clientEntity.addCard(newCard);
+            clientEntity.addCardsOwned(newCard);
             clientRepository.save(clientEntity);
-
             newCard = repository.save(newCard);
             return newCard;
 
         } else {
-
-            ClientEntity clientEntity = entity.getOwnerOfAccount();
-            System.out.println("Cardholder: " + entity.getOwnerOfAccount());
+            ClientEntity clientEntity = clientRepository.getById(entity.getCardOwner().getId());
             CardEntity newCard = new CardEntity();
-            System.out.println("Tipo: " + entity.getCardType());
-            System.out.println("Color: " + entity.getCardColor());
             newCard.setThruDate(thruFecha);
             newCard.setFromDate(fromFecha);
             newCard.setCardType(entity.getCardType());
             newCard.setNumber(randomNumber);
             newCard.setCardColor(entity.getCardColor());
             newCard.setCvv(cvvNumber);
-            newCard.setOwnerOfCard(entity.getOwnerOfAccount());
-            System.out.println("Before");
-            clientEntity.addCard(newCard);
-            System.out.println("After");
+            newCard.setCardOwner(entity.getCardOwner());
+            clientEntity.addCardsOwned(newCard);
             clientRepository.save(clientEntity);
             newCard = repository.save(newCard);
             return newCard;

@@ -101,7 +101,7 @@
             </div>
           </div>
             <div id ="cardholder" class = "cardholder">
-              <template v-for="(card, property) in currentSession.cards">
+              <template v-for="(card, property) in currentSession.cardsOwned">
                 <div v-if = "card.cardColor == accountTypeChosen" class="card">
                   <div class="card__front card__part bg--titanium">
                     <div class="card__title">

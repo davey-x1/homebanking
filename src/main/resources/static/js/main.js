@@ -110,12 +110,8 @@ Vue.createApp({
                 let accountCreated = {};
                 let clientCreated = {};
                 clientCreated.id = this.currentSession.id;
-                clientCreated.firstName = this.currentSession.firstName;
-                clientCreated.lastName = this.currentSession.lastName;
-                clientCreated.email = this.currentSession.email;
-                clientCreated.accounts = this.currentSession.accounts;
                 // -----------------------------------
-                accountCreated.owner = clientCreated;
+                accountCreated.accountOwner = clientCreated;
                 accountCreated.accountType = "CHECKING";
                 // -----------------------------------
                 axios({
@@ -138,11 +134,19 @@ Vue.createApp({
                 Swal.fire('Created!', '', 'success');
               } else if (result.isDenied) {
                   this.refreshSession();
-                  let accountCreated = {};
-                  let clientCreated = JSON.parse(JSON.stringify(this.currentSession));
+                  let clientCreated = {};
+                  clientCreated.id = this.currentSession.id;
+                  let accountCreated = {
+                    accountOwner: clientCreated,
+                    accountType: "SAVING"
+                  };
+
+                  console.log(accountCreated);
+                  console.log(clientCreated);
+
                   // -----------------------------------
-                  accountCreated.owner = clientCreated;
-                  accountCreated.accountType = "SAVINGS";
+                  //accountCreated.accountOwner = clientCreated;
+                  //accountCreated.accountType = "SAVINGS";
                   // -----------------------------------
                   axios({
                       method: 'post',
@@ -272,6 +276,10 @@ Vue.createApp({
         // ----------------------------------------
         changeTemplate(template){
             this.actualTemplate = template;
+        },
+        logout: function(){
+          axios.post('../api/logout').then(response => console.log('signed out!!!'));
+          window.location.href = '../pages/login.html';
         }
     }
 }).mount('#app')

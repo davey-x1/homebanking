@@ -40,6 +40,9 @@ Vue.createApp({
 
             })
           .catch(response => alert("Error"))
+      },
+      logout: function(){
+        axios.post('../api/logout').then(response => console.log('signed out!!!'))
       }
     }
 }).mount('#app')

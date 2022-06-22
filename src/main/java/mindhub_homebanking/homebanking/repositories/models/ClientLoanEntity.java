@@ -2,41 +2,38 @@ package mindhub_homebanking.homebanking.repositories.models;
 /* ------------------------------------------- */
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 /* ------------------------------------------- */
 
 @Entity
-public class ClientLoan {
+public class ClientLoanEntity {
     /* --------------------------------------- */
-    //id, name, maxAmount y payments
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     private long id;
+
+    @JoinColumn(name = "fk_loan_id")
+    private int fk_loanid;
+
+    private String name;
     private int amount;
+    private int paymentOfLoans;
 
-    private int payments;
-
-    @JsonBackReference(value = "ownerOfLoanReference")
-    @ManyToOne
+    @JsonBackReference(value = "ownerOfLoanClientReference")
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "client_id")
     ClientEntity ownerOfLoan;
-
-    @JsonBackReference(value = "loanEntityReference")
-    @ManyToOne
+    @JsonBackReference(value = "clientLoanEntityReference")
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "loan_id")
     LoanEntity loanEntity;
 
     /* --------------------------------------- */
 
-    public ClientLoan() {
+    public ClientLoanEntity() {
     }
 
     /* --------------------------------------- */
@@ -47,10 +44,17 @@ public class ClientLoan {
         this.amount = amount;
     }
 
-    public void setPayments(int payments){
-        this.payments = payments;
+    public void setPaymentOfLoans(int payments){
+        this.paymentOfLoans = payments;
     }
 
+    public void setLoanId(int loanId){
+        this.fk_loanid = loanId;
+    }
+
+    public void setNameOfLoan(String name){
+        this.name = name;
+    }
     public void setOwnerOfLoan(ClientEntity client){
         this.ownerOfLoan = client;
     }
@@ -70,16 +74,22 @@ public class ClientLoan {
         return amount;
     }
 
-    public int getPayments(){
-        return payments;
+    public int getPaymentOfLoans(){
+        return paymentOfLoans;
     }
-
     public LoanEntity getLoanEntity() {
         return loanEntity;
     }
-
     public ClientEntity getOwnerOfLoan() {
         return ownerOfLoan;
+    }
+
+    public String getNameOfLoan(){
+        return name;
+    }
+
+    public int getIdOfLoan(){
+        return fk_loanid;
     }
 }
 

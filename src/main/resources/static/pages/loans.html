@@ -76,15 +76,16 @@
             <div class="shooting_star"></div>
           </div>
           <div class="div__card-container ">
+
             <div v-for="loan in existingLoans" class="div__card div__flex bg--titanium" @click = "changeActiveLoan(loan)">
               <div class="div__card-info ">
                 <div class="div__card-info-details" style = "margin-top: 5%;">
                   <p class = "no-mp div__bold div__lobster" > Name </p>
-                  <p class = "no-mp"> {{ loan.nameOfLoan }} </p>
+                  <p class = "no-mp"> {{ loan.name }} </p>
                   <p class = "no-mp div__bold div__lobster" > Max Amount </p>
-                  <p class = "no-mp"> {{ loan.maxAmountOfLoan }} </p>
+                  <p class = "no-mp"> {{ loan.maxAmount }} </p>
                   <p class = "no-mp div__bold div__lobster" > Payment options </p>
-                  <p class = "no-mp"> {{ loan.paymentsOfLoan }} </p>
+                  <p class = "no-mp"> <span v-for="item in loan.payments" style = "margin-right: 1%;">{{ item }} /</span></p>
                 </div>
               </div>
             </div>
@@ -94,22 +95,23 @@
               <div class="div__form div__center">
                 <form class="" @submit="createLoan" id = "">
                    <div class="div__lobster div__flex" style = "justify-content: space-between">
-                     <p>Name of the credit: {{ currentLoan.nameOfLoan }}</p>
-                     <p>Max amount of loan: {{ currentLoan.maxAmountOfLoan }}</p>
+                     <p>Name of the credit: {{ currentLoan.name }}</p>
+                     <p>Max amount of loan: {{ currentLoan.maxAmount }}</p>
                    </div>
                   <label for="lname" class ="div__lobster">Amount you want to ask</label>
                   <input type="number" id="amount" placeholder="">
 
-                  <label for="select-payment" class ="div__lobster">Choose a payment option</label>
-                  <select id="selectpayment">
-                    <option v-for="item in currentLoan.paymentsOfLoan" :value="item"> {{ item }} </option>
+                  <label for="selectaccountoption" class ="div__lobster">Choose an account destination</label>
+                  <select id="selectaccountoption">
+                    <option value="">Select an account</option>
+                    <option v-for="item in currentSession.accountsOwned" :value="item"> {{ item.numberOfAccount }} </option>
                   </select>
 
-                  <label for="select-payment" class ="div__lobster">Choose a payment option</label>
-                  <select id="selectpayment">
-                    <option v-for="item in currentLoan.paymentsOfLoan" :value="item"> {{ item }} </option>
+                  <label for="selectpaymentoption" class ="div__lobster">Choose a payment option</label>
+                  <select id="selectpaymentoption">
+                    <option v-for="item in currentLoan.payments" :value="item"> {{ item }} </option>
                   </select>
-                  
+
                   <input type="submit" value = "">
                 </form>
               </div>
@@ -125,7 +127,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js" integrity="sha512-xIPqqrfvUAc/Cspuj7Bq0UtHNo/5qkdyngx6Vwt+tmbvTLDszzXM0G6c91LXmGrRx8KEPulT+AfOOez+TeVylg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src = "../js/cards.js" type="text/javascript"></script>
+    <script src = "../js/loans.js" type="text/javascript"></script>
     <script src = "../js/sidebar.js" type="text/javascript"></script>
   </body>
 </html>

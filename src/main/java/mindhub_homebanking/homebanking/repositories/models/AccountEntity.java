@@ -25,15 +25,14 @@ public class AccountEntity {
 
     @JsonBackReference(value = "accountsOwnedReference")
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="client_id")
-    private ClientEntity owner;
+    @JoinColumn(name="accountOwner_id")
+    private ClientEntity accountOwner;
 
     @JsonManagedReference(value = "transactionEntitiesReference")
     @OneToMany(mappedBy="account", fetch=FetchType.EAGER)
     Set<TransactionEntity> transactionEntities = new HashSet<>();
 
     /* --------------------------------------- */
-
     public AccountEntity() {
     }
 
@@ -53,7 +52,7 @@ public class AccountEntity {
     }
 
     public void setOwnerOfAccount(ClientEntity client){
-        this.owner = client;
+        this.accountOwner = client;
     }
 
     public void addTransaction(TransactionEntity transaction){
@@ -83,8 +82,8 @@ public class AccountEntity {
         return id;
     }
 
-    public ClientEntity getOwner(){
-        return owner;
+    public ClientEntity getAccountOwner(){
+        return accountOwner;
     }
 
     public Set<TransactionEntity> getTransactionEntities(){

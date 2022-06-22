@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import mindhub_homebanking.homebanking.dto.ClientDTO;
+import mindhub_homebanking.homebanking.dto.LoanDTO;
 import mindhub_homebanking.homebanking.dto.TransactionDTO;
 import mindhub_homebanking.homebanking.repositories.models.AccountEntity;
 import mindhub_homebanking.homebanking.repositories.models.ClientEntity;
@@ -28,16 +29,14 @@ public class TransactionController {
     TransactionService service;
 
     @PostMapping("/create")
-    public ResponseEntity<Set<TransactionEntity>> createOrUpdateTransaction(
+    public ResponseEntity<List<TransactionDTO>> createOrUpdateTransaction(
             @RequestParam int monto,
             @RequestParam String description,
             @RequestParam String cuentaOrigen,
             @RequestParam String cuentaDestino) {
-        System.out.println("Monto: " + cuentaOrigen + " Description: " + cuentaDestino);
-        Set<TransactionEntity> listTransaction = service.createTransaction(monto, description, cuentaOrigen, cuentaDestino);
-        return new ResponseEntity<>(listTransaction, new HttpHeaders(), HttpStatus.OK);
+        List<TransactionDTO> listDTO = service.createTransaction(monto, description, cuentaOrigen, cuentaDestino).stream().map(TransactionDTO::new).collect(toList());
+        return new ResponseEntity<>(listDTO, new HttpHeaders(), HttpStatus.OK);
     }
-
     @DeleteMapping("/{id}")
     public HttpStatus deleteTransactionById(@PathVariable("id") Long id) {
 

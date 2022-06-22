@@ -15,10 +15,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ClientService {
-
     @Autowired
     ClientRepository repository;
-
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -62,11 +60,7 @@ public class ClientService {
     public ClientEntity createOrUpdateClient(ClientEntity entity)
     {
         Optional<ClientEntity> client = repository.findById(entity.getId());
-
-        if(client.isPresent())
-        {
-
-            System.out.println("Client Exists");
+        if(client.isPresent()){
             ClientEntity newEntity = client.get();
             newEntity.setEmail(entity.getEmail());
             newEntity.setFirstName(entity.getFirstName());
@@ -77,7 +71,6 @@ public class ClientService {
 
         } else {
 
-            System.out.println("Client Doesn't exist");
             entity = repository.save(entity);
             return entity;
 

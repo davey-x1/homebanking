@@ -1,8 +1,13 @@
 package mindhub_homebanking.homebanking;
 
+import mindhub_homebanking.homebanking.dto.LoanDTO;
+import mindhub_homebanking.homebanking.repositories.ClientLoanRepository;
 import mindhub_homebanking.homebanking.repositories.ClientRepository;
 import mindhub_homebanking.homebanking.repositories.LoanRepository;
+import mindhub_homebanking.homebanking.repositories.models.ClientEntity;
+import mindhub_homebanking.homebanking.repositories.models.ClientLoanEntity;
 import mindhub_homebanking.homebanking.repositories.models.LoanEntity;
+import mindhub_homebanking.homebanking.services.ClientLoanService;
 import mindhub_homebanking.homebanking.services.ClientService;
 import mindhub_homebanking.homebanking.services.LoanService;
 import org.slf4j.Logger;
@@ -26,10 +31,14 @@ public class HomebankingApplication implements CommandLineRunner {
 	ClientRepository clientRepo;
 
 	@Autowired
+	ClientLoanService clientLoanService;
+
+	@Autowired
 	ClientService clientService;
 
 	@Autowired
 	LoanService loanService;
+
 
 	private static Logger LOG = LoggerFactory
 			.getLogger(HomebankingApplication.class);
@@ -74,6 +83,22 @@ public class HomebankingApplication implements CommandLineRunner {
 
 
 		loanService.createNewLoan(loanEntity3);
+		// -------------------------------------------------
+		ClientLoanEntity newClientLoan = new ClientLoanEntity();
+
+		ClientEntity newClient = new ClientEntity();
+		newClient.setEmail("asd123@gmail.com");
+		newClient.setFirstName("asd");
+		newClient.setLastName("qwe");
+		newClient.setPassword("asd123");
+		clientService.createOrUpdateClient(newClient);
+		newClientLoan.setAmountOfLoan(100);
+		newClientLoan.setLoanId(0);
+		newClientLoan.setNameOfLoan("PERSONAL");
+		newClientLoan.setOwnerOfLoan(newClient);
+		newClientLoan.setLoanEntity(loanEntity);
+		newClientLoan.setPaymentOfLoans(24);
+		//clientLoanService.createClientLoan(newClientLoan);
 		// ---------------------------------- //
 		LOG.info("EXECUTING : command line runner");
 	}

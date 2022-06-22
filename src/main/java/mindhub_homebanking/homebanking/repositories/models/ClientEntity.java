@@ -1,7 +1,6 @@
 package mindhub_homebanking.homebanking.repositories.models;
 /* ------------------------------------------- */
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -25,22 +24,20 @@ public class ClientEntity {
     private String role;
 
     @JsonManagedReference(value = "accountsOwnedReference")
-    @OneToMany(mappedBy="owner", fetch=FetchType.EAGER)
+    @OneToMany(mappedBy="accountOwner", fetch=FetchType.EAGER)
     Set<AccountEntity> accountsOwned = new HashSet<>();
 
-
-    @OneToMany(mappedBy = "owner", fetch=FetchType.EAGER)
+    @JsonManagedReference(value = "cardsOwnedReference")
+    @OneToMany(mappedBy = "cardOwner", fetch=FetchType.EAGER)
     Set<CardEntity> cardsOwned = new HashSet<>();
 
-    @JsonManagedReference(value = "ownerOfLoanReference")
+    @JsonManagedReference(value = "ownerOfLoanClientReference")
     @OneToMany(mappedBy = "ownerOfLoan", fetch=FetchType.EAGER)
-    Set<ClientLoan> loansOwned = new HashSet<>();
+    Set<ClientLoanEntity> loansOwned = new HashSet<>();
 
     /* --------------------------------------- */
-
     public ClientEntity() {
     }
-
     public ClientEntity(String firstName, String lastName, String email, String pass) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -73,14 +70,14 @@ public class ClientEntity {
     public long getId(){
         return id;
     }
-    public Set<AccountEntity> getAccounts(){
+    public Set<AccountEntity> getAccountsOwned(){
         return accountsOwned;
     }
-    public Set<CardEntity> getCards(){
+    public Set<CardEntity> getCardsOwned(){
         return cardsOwned;
     }
 
-    public Set<ClientLoan> getLoansOwned(){
+    public Set<ClientLoanEntity> getLoansOwned(){
         return loansOwned;
     }
 
@@ -98,19 +95,19 @@ public class ClientEntity {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-    public void setLoansOwned(ClientLoan entity){
+    public void setLoansOwned(ClientLoanEntity entity){
         this.loansOwned.add(entity);
     }
-
     public void setRole(String role){
         this.role = role;
     }
 
-    public void addAccount(AccountEntity account){
+    public void addAccountsOwned(AccountEntity account){
+
         this.accountsOwned.add(account);
     }
-
-    public void addCard(CardEntity card){
+    public void addCardsOwned(CardEntity card){
+        System.out.println("Before adding card");
         this.cardsOwned.add(card);
     }
 }

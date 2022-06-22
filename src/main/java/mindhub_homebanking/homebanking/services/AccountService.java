@@ -35,8 +35,7 @@ public class AccountService {
         }
     }
 
-    public AccountEntity getAccountById(Long id)
-    {
+    public AccountEntity getAccountById(Long id) {
         Optional<AccountEntity> accountFound = repository.findById(id);
 
         if(accountFound.isPresent()) {
@@ -48,8 +47,7 @@ public class AccountService {
 
     }
 
-    public AccountEntity getAccountByNumber(String number)
-    {
+    public AccountEntity getAccountByNumber(String number) {
         Optional<AccountEntity> accountFound = repository.findByNumber(number);
 
         if(accountFound.isPresent()) {
@@ -61,23 +59,21 @@ public class AccountService {
 
     }
 
-    public AccountEntity createOrUpdateAccount(AccountEntity entity)
-    {
+    public AccountEntity createOrUpdateAccount(AccountEntity entity) {
         System.out.println("Found2");
         LocalDate fecha = LocalDate.now();
         Random rnd = new Random();
         int number = rnd.nextInt(9999);
         String numberOfAccount = "VIN" + String.format("%04d", number);
         Optional<AccountEntity> account = repository.findById(entity.getId());
-        if(account.isPresent())
-        {
+        if(account.isPresent()){
             AccountEntity newEntity = account.get();
-            ClientEntity clientEntity = newEntity.getOwner();
+            ClientEntity clientEntity = clientRepository.getById(entity.getAccountOwner().getId());
             newEntity.setCreationDateOfAccount(entity.getCreationDateOfAccount());
             newEntity.setBalanceOfAccount(entity.getBalanceOfAccount());
             newEntity.setNumberOfAccount(entity.getNumberOfAccount());
             newEntity.setAccountType(entity.getAccountType());
-            clientEntity.addAccount(newEntity);
+            clientEntity.addAccountsOwned(newEntity);
             clientRepository.save(clientEntity);
 
             newEntity = repository.save(newEntity);
@@ -85,12 +81,12 @@ public class AccountService {
             return newEntity;
         } else {
             System.out.println(entity.getAccountType());
-            ClientEntity clientEntity = entity.getOwner();
+            ClientEntity clientEntity = clientRepository.getById(entity.getAccountOwner().getId());
             entity.setCreationDateOfAccount(fecha);
             entity.setNumberOfAccount(numberOfAccount);
             entity.setBalanceOfAccount(0L);
             entity.setAccountType(entity.getAccountType());
-            clientEntity.addAccount(entity);
+            clientEntity.addAccountsOwned(entity);
             clientRepository.save(clientEntity);
             entity = repository.save(entity);
 
@@ -98,11 +94,9 @@ public class AccountService {
         }
     }
 
-    public void deleteAccountById(Long id)
-    {
+    public void deleteAccountById(Long id) {
         Optional<AccountEntity> account = repository.findById(id);
-        if(account.isPresent())
-        {
+        if(account.isPresent()) {
             repository.deleteById(id);
         }
     }
